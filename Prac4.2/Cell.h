@@ -15,6 +15,8 @@ struct Cell {
 
 	Cell(int xx, int yy, int hh):x(xx), y(yy), heuristic(hh) {}
 
+
+	//returns true if left hand cell is less than right hand cell.
 	bool operator<(const Cell& c) const {
 		return heuristic < c.heuristic;
 	}
