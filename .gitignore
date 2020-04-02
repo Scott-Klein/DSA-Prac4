@@ -9,3 +9,5 @@
 *.tlog
 *unsuccessfulbuild
 
+*.vs/
+*x64/
