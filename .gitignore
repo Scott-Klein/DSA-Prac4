@@ -4,8 +4,8 @@
 *.ipch
 *.log
 *.obj
-.idb
-.pdb
-.tlog
-unsuccessfulbuild
+*.idb
+*.pdb
+*.tlog
+*unsuccessfulbuild
 

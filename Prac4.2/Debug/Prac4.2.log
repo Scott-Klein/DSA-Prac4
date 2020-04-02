@@ -1,3 +1,0 @@
-﻿  TicTacToeApp.cpp
-C:\Users\scott\source\repos\Prac4\Prac4.2\TicTacToeApp.cpp(21,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Prac4.2.vcxproj -> C:\Users\scott\source\repos\Prac4\Debug\Prac4.2.exe
