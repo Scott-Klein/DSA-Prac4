@@ -1,9 +1,9 @@
-.suo
-.VC.db
-.VC.db-wal
-.ipch
-.log
-.obj
+*.suo
+*.VC.db
+*.VC.db-wal
+*.ipch
+*.log
+*.obj
 .idb
 .pdb
 .tlog
