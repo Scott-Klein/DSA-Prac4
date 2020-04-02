@@ -20,6 +20,18 @@ public:
 
 	int heuristics(char player);
 
+	int improvedHeuristics(char player);
+
+	char WhoIsOpponent(char player);
+
+	void BackwardDiagonalCheck(char player, int& length);
+
+	void ForwardDiagonalCheck(char player, int& length);
+
+	void ColumnCheck(char player, int& length);
+
+	void RowCheck(char player, int& length);
+
 	void displayBoard() const;
 	//Function to print the board.
 
@@ -114,7 +126,114 @@ char ticTacToe::gameStatus() {
 
 int ticTacToe::heuristics(char player) {
 	int length = 0;
-	//check rows
+
+	RowCheck(player, length);
+
+
+	ColumnCheck(player, length);
+
+
+	ForwardDiagonalCheck(player, length);
+
+
+	BackwardDiagonalCheck(player, length);
+//	cout << "The length is " << length << endl;
+
+	return length;
+}
+
+int ticTacToe::improvedHeuristics(char player) {
+	int length = 0;
+	int opponentLength = 0;
+	char opponent = WhoIsOpponent(player);
+
+
+	RowCheck(opponent, opponentLength);
+	RowCheck(player, length);
+
+	ColumnCheck(opponent, opponentLength);
+	ColumnCheck(player, length);
+
+	ForwardDiagonalCheck(opponent, opponentLength);
+	ForwardDiagonalCheck(player, length);
+
+	BackwardDiagonalCheck(opponent, opponentLength);
+	BackwardDiagonalCheck(player, length);
+	//	cout << "The length is " << length << endl;
+
+	return length - opponentLength;
+}
+
+char ticTacToe::WhoIsOpponent(char player)
+{
+	if (player == 'O')
+	{
+		return 'X';
+	}
+	else
+	{
+		return 'O';
+	}
+}
+
+void ticTacToe::BackwardDiagonalCheck(char player, int& length)
+{
+	//check backward diagonal
+	for (int i = 0; i < 3; i++) {
+		int k = 0;
+		for (int l = 0; i + l < 3; l++) {
+			if (board[i + l][2 - i - l] == player)
+				k++;
+			else {
+				break;
+				k = 0;
+			}
+		}
+		if (k > length)
+			length = k;
+	}
+}
+
+void ticTacToe::ForwardDiagonalCheck(char player, int& length)
+{
+	//check forward diagonal
+	for (int i = 0; i < 3; i++) {
+		int k = 0;
+		for (int l = 0; i + l < 3; l++) {
+			if (board[i + l][i + l] == player)
+				k++;
+			else {
+				break;
+				k = 0;
+			}
+		}
+		if (k > length)
+			length = k;
+	}
+}
+
+void ticTacToe::ColumnCheck(char player, int& length)
+{
+	//check column
+	for (int j = 0; j < 3; j++) {
+		for (int i = 0; i < 3; i++) {
+			int k = 0;
+			for (int l = 0; i + l < 3; l++) {
+				if (board[i + l][j] == player)
+					k++;
+				else {
+					break;
+					k = 0;
+				}
+			}
+			if (k > length)
+				length = k;
+		}
+	}
+}
+
+void ticTacToe::RowCheck(char player, int& length)
+{
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			int k = 0;
@@ -132,57 +251,6 @@ int ticTacToe::heuristics(char player) {
 			}
 		}
 	}
-
-	//check column
-	for (int j = 0; j < 3; j++) {
-		for (int i = 0; i < 3; i++) {
-			int k = 0;
-			for (int l = 0; i + l < 3; l++) {
-				if (board[i + l][j] == player)
-					k++;
-				else {
-					break;
-					k = 0;
-				}
-			}
-			if (k > length)
-				length = k;
-		}
-	}
-
-	//check forward diagonal
-	for (int i = 0; i < 3; i++) {
-		int k = 0;
-		for (int l = 0; i + l < 3; l++) {
-			if (board[i + l][i + l] == player)
-				k++;
-			else {
-				break;
-				k = 0;
-			}
-		}
-		if (k > length)
-			length = k;
-	}
-
-	//check backward diagonal
-	for (int i = 0; i < 3; i++) {
-		int k = 0;
-		for (int l = 0; i + l < 3; l++) {
-			if (board[i + l][2 - i - l] == player)
-				k++;
-			else {
-				break;
-				k = 0;
-			}
-		}
-		if (k > length)
-			length = k;
-	}
-
-//	cout << "The length is " << length << endl;
-
-	return length;
 }
 
 void ticTacToe::reStart() {

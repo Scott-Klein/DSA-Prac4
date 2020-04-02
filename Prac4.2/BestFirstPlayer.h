@@ -9,13 +9,15 @@
 #define BESTFIRSTPLAYER_H_
 
 class BestFirstPlayer {
+protected:
 	char playerSymbol;
 public:
 	BestFirstPlayer(char ps) {
 		playerSymbol = ps;
 	}
 
-	void getMove(ticTacToe board, int& x, int& y) {
+	//O(n^2)
+	virtual void getMove(ticTacToe board, int& x, int& y) {
 		if (board.isFull())
 			return;
 

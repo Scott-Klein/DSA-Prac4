@@ -5,18 +5,40 @@
  *      Author: dongmo
  */
 
+#include "ScottsSmartPlayer.h"
 #ifndef GAME_H_
 #define GAME_H_
 
 class Game {
+private:
+	char winner;
 public:
-	void play() {
+	char GetWinner()
+	{
+		if (winner == 'X' || winner == 'O')
+		{
+			return winner;
+		}
+		else
+		{
+			return 'D';
+		}
+	}
+
+	void play(bool ScottFirst) {
 		ticTacToe board;
 		board.displayBoard();
 
-		HumanPlayer hplayer('X');
+		ScottsSmartPlayer hplayer('X');
 		BestFirstPlayer mplayer('O');
 
+		if (!ScottFirst)
+		{
+			hplayer = ScottsSmartPlayer('O');
+			mplayer = BestFirstPlayer('X');
+		}
+
+		
 		bool done = false;
 		char player = 'X';
 
@@ -47,6 +69,7 @@ public:
 		char gStatus = board.gameStatus();
 
 		if (gStatus == playerSymbol) {
+			winner = playerSymbol;
 			cout << "Player " << playerSymbol << " wins!" << endl;
 			return true;
 		} else if (gStatus == 'D') {
